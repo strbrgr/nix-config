@@ -18,6 +18,19 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDCJyJ4HghnqXpEdSR6Ex9EhxOmGbWLMUAkU6y2c/Oe8 jocsti@web.de"
     ];
   };
+  users.users.jo = {
+    isNormalUser = true;
+    uid = 1001;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+    ];
+
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDCJyJ4HghnqXpEdSR6Ex9EhxOmGbWLMUAkU6y2c/Oe8 jocsti@web.de"
+    ];
+  };
   environment.systemPackages = with pkgs; [
     git
     vim
