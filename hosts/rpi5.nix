@@ -23,8 +23,6 @@
     uid = 1001;
     extraGroups = [
       "wheel"
-      "networkmanager"
-      "video"
     ];
 
     openssh.authorizedKeys.keys = [
