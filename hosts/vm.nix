@@ -13,43 +13,18 @@
     networkmanager.enable = true;
   };
 
-  # Set your time zone.
   time.timeZone = "America/Chicago";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  programs.sway.enable = true;
+  services.openssh.enable = true;
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-  services = {
-    # Enable the X11 windowing system.
-    # You can disable this if you're only using the Wayland session.
-    xserver.enable = true;
+  environment.systemPackages = with pkgs; [
+    ghostty
+    git
+    neovim
+  ];
 
-    # Enable the KDE Plasma Desktop Environment.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma6.enable = true;
-
-    # Configure keymap in X11
-    xserver.xkb = {
-      layout = "us";
-      variant = "";
-    };
-    openssh.enable = true;
-  };
-  # Enable CUPS to print documents
   services.printing.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."jo" = {
     isNormalUser = true;
     description = "jo";
