@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -13,25 +18,33 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   networking.hostName = "t480";
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the Budgie Desktop environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.budgie.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.throttled.enable = lib.mkForce false;
+  services.thermald.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    foot # Fast, minimal Wayland terminal
+    wofi # Lightweight application launcher
+    waybar # Status bar
+    dunst # Lightweight notification daemon
+    wl-clipboard # Wayland copy/paste support
+    grim # Screenshot utility
+    slurp # Screen region selector
+    brightnessctl # Backlight control for ThinkPad function keys
+    networkmanagerapplet
+  ];
 
   # Install firefox.
   programs.firefox.enable = true;
